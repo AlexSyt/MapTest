@@ -69,6 +69,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(0, 0)));
     }
 
+    /**
+     * This method rotates the map according to the user's angle of rotation.
+     *
+     * @param bearing direction that the camera is pointing in, in degrees clockwise from north.
+     */
     private void updateCameraBearing(float bearing) {
         CameraPosition camPos = CameraPosition.builder(map.getCameraPosition()).bearing(bearing).build();
         map.moveCamera(CameraUpdateFactory.newCameraPosition(camPos));
@@ -77,6 +82,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     float[] gravity;
     float[] geomagnetic;
 
+    /**
+     * This method checks whether the user has turned. If a turn occurs,
+     * then it calculates a new direction and calls a method to rotate the map on the device.
+     *
+     * @param event occurred SensorEvent.
+     */
     public void onSensorChanged(SensorEvent event) {
         if (map != null) {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
